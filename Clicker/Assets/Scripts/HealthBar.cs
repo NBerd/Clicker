@@ -7,9 +7,9 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Image _healthBarImage;
     [SerializeField] private Image _fillBarImage;
-    [SerializeField] private CanvasGroup _canvasGroup;
 
     [SerializeField] private float _fillDelay;
+    [SerializeField] private float _fillSpeedMultiplier;
     [SerializeField] private AnimationCurve _fillCurve;
 
     private float _lastInteractionTime;
@@ -36,7 +36,7 @@ public class HealthBar : MonoBehaviour
         float fillValue = startFillValue;
 
         float timer = 0f;
-        float fillingTime = fillValue - healthValue;
+        float fillingTime = (fillValue - healthValue) / _fillSpeedMultiplier;
 
         while (fillValue != healthValue) 
         {
