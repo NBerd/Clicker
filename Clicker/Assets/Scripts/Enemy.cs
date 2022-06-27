@@ -1,16 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IHitable
 {
-    public virtual void Hit()
+    [SerializeField] private HealthBar _healthBar;
+
+    private HealthSystem _healthSystem;
+
+    private void Start()
     {
-        TakeDamage();
+        _healthSystem = new HealthSystem(100f, _healthBar);
+        _healthBar.OnDie += Die;
     }
 
-    private void TakeDamage() 
+    public virtual void Hit()
     {
-        Debug.Log("Ouch!");
+        _healthSystem.TakeDamage(10f);
+    }
+
+    public void Die() 
+    {
+        Destroy(gameObject);
     }
 }
