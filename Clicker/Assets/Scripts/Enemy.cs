@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IHitable
 {
+    [SerializeField] private float _startHealth;
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private Collider _collider;
     [SerializeField] private EnemyContoller _controller;
@@ -12,8 +13,8 @@ public class Enemy : MonoBehaviour, IHitable
 
     private void Start()
     {
-        _healthSystem = new HealthSystem(30f, _healthBar);
-        _healthBar.OnDie += Die;
+        _healthSystem = new HealthSystem(_startHealth, _healthBar);
+        _healthBar.OnFilled += Die;
     }
 
     private void Update()
@@ -26,13 +27,13 @@ public class Enemy : MonoBehaviour, IHitable
 
     public virtual void Hit()
     {
-        _healthSystem.TakeDamage(10f);
+        _healthSystem.TakeDamage(1f);
 
         if (_healthSystem.IsDead)
             Disable();
     }
 
-    private void Disable() 
+    public void Disable() 
     {
         _collider.enabled = false;
         Spawner.RemoveEnemy(this);

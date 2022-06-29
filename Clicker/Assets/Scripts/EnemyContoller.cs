@@ -17,7 +17,11 @@ public class EnemyContoller : MonoBehaviour
 
     private void Start()
     {
+        _targetPosition = GameArea.GetRandomPosition();
         _modelTransform.rotation = GetLookRotation();
+
+        _moveSpeed += GameManager.GameDifficulty;
+        _rotationSpeed += GameManager.GameDifficulty;
     }
 
     public void Move()
@@ -27,7 +31,7 @@ public class EnemyContoller : MonoBehaviour
 
         Vector3 currentPosition = transform.position;
 
-        if (currentPosition == _targetPosition || _targetPosition == null) 
+        if (currentPosition == _targetPosition) 
         {
             _targetPosition = GameArea.GetRandomPosition();
             _accelerationTimer = 0;

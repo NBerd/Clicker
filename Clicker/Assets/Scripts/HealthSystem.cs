@@ -11,7 +11,7 @@ public class HealthSystem
 
     public HealthSystem(float health, HealthBar healthBar) 
     {
-        _maxHealth = health;
+        _maxHealth = Mathf.Round(health + GameManager.GameDifficulty);
         _currentHealth = _maxHealth;
 
         _healthBar = healthBar;

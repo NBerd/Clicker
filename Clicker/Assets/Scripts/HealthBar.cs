@@ -9,13 +9,34 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image _fillBarImage;
 
     [SerializeField] private float _fillDelay;
+    [SerializeField] private float _fadeDelay;
+    [SerializeField] private float _fadingTime;
     [SerializeField] private float _fillSpeedMultiplier;
     [SerializeField] private AnimationCurve _fillCurve;
+    [SerializeField] private CanvasGroup _canvasGroup;
 
+    private float _fadingTimer;
     private float _lastInteractionTime;
     private Coroutine _fillEffect;
 
-    public event Action OnDie;
+    public event Action OnFilled;
+
+    private void Update()
+    {
+        if (Time.time > _lastInteractionTime + _fadeDelay && _canvasGroup.alpha > 0) 
+        {
+            _fadingTimer += Time.deltaTime;
+            float fadeValue = Mathf.Lerp(1, 0, _fadingTimer / _fadingTime);
+
+            Fade(fadeValue);
+        }
+        else _fadingTimer = 0;
+    }
+
+    private void Fade(float value) 
+    {
+        _canvasGroup.alpha = value;
+    }
 
     public void SetHealth(float maxValue, float currentValue) 
     {
@@ -28,6 +49,8 @@ public class HealthBar : MonoBehaviour
             StopCoroutine(_fillEffect);
 
         _fillEffect = StartCoroutine(FillEffect(fillValue));
+
+        Fade(1);
     }
 
     IEnumerator FillEffect(float healthValue) 
@@ -54,6 +77,6 @@ public class HealthBar : MonoBehaviour
         }
 
         if (healthValue <= 0)
-            OnDie?.Invoke();
+            OnFilled?.Invoke();
     }
 }

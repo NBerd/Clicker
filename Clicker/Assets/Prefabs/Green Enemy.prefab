@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7412823052585010889}
   - component: {fileID: 7412823052585010886}
   - component: {fileID: 7412823052585010887}
+  - component: {fileID: 3501003285004467802}
   - component: {fileID: 7412823052585010884}
   m_Layer: 5
   m_Name: Canvas
@@ -160,6 +161,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!225 &3501003285004467802
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7412823052585010885}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &7412823052585010884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +188,8 @@ MonoBehaviour:
   _healthBarImage: {fileID: 7412823054068988053}
   _fillBarImage: {fileID: 7412823054184050649}
   _fillDelay: 0.1
+  _fadeDelay: 1
+  _fadingTime: 0.2
   _fillSpeedMultiplier: 1.5
   _fillCurve:
     serializedVersion: 2
@@ -200,6 +215,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _canvasGroup: {fileID: 3501003285004467802}
 --- !u!1 &7412823053266559318
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +229,7 @@ GameObject:
   - component: {fileID: 7412823053266559323}
   - component: {fileID: 6341810863070847873}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Green Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e3907512a1d3e4b8de77783ca29ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startHealth: 3
   _healthBar: {fileID: 7412823052585010884}
   _collider: {fileID: 7412823053266559321}
   _controller: {fileID: 6341810863070847873}
@@ -484,7 +501,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7412823054184050646}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
