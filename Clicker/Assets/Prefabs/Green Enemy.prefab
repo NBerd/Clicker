@@ -294,7 +294,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 1
   _rotationSpeed: 1.5
-  _accelerationTime: 0.5
+  _accelerationSpeed: 2
+  _slowMultiplier: 0.5
+  _slowDuration: 0.5
   _accelerationCurve:
     serializedVersion: 2
     m_Curve:

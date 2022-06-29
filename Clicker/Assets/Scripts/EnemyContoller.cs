@@ -6,12 +6,14 @@ public class EnemyContoller : MonoBehaviour
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private float _accelerationTime;
-    [SerializeField] private AnimationCurve _accelerationCurve;
+    [SerializeField] private float _accelerationSpeed;
+    [SerializeField] private float _slowMultiplier;
+    [SerializeField] private float _slowDuration;
     [SerializeField] private Transform _modelTransform;
 
-    private float _accelerationTimer = 0;
-    private float _currentMoveSpeed = 0;
+    private float _currentMoveSpeed;
+
+    private float _slowTimer = 0;
 
     private Vector3 _targetPosition;
 
@@ -32,10 +34,7 @@ public class EnemyContoller : MonoBehaviour
         Vector3 currentPosition = transform.position;
 
         if (currentPosition == _targetPosition) 
-        {
             _targetPosition = GameArea.GetRandomPosition();
-            _accelerationTimer = 0;
-        }
 
         transform.position = Vector3.MoveTowards(currentPosition, _targetPosition, _currentMoveSpeed * Time.deltaTime);
     }
@@ -50,18 +49,32 @@ public class EnemyContoller : MonoBehaviour
 
     private void Rotate(Quaternion rotation) 
     {
-        _modelTransform.rotation = Quaternion.Slerp(_modelTransform.rotation, rotation, _rotationSpeed * Time.deltaTime);
+        float rotationSpeed = _slowTimer > 0 ? _rotationSpeed * _slowMultiplier : _rotationSpeed;
+
+        _modelTransform.rotation = Quaternion.Slerp(_modelTransform.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 
     private void SetAcceleration()
     {
-        if (_accelerationTimer != _accelerationTime)
+        if (_slowTimer > 0) 
         {
-            _accelerationTimer += Time.deltaTime;
+            _slowTimer -= Time.deltaTime;
 
-            float curveValue = _accelerationCurve.Evaluate(_accelerationTimer / _accelerationTime);
-            _currentMoveSpeed = Mathf.Lerp(0, _moveSpeed, curveValue);
+            return;
         }
-        else _accelerationTimer = 0;
+
+        float speed = Mathf.Lerp(_currentMoveSpeed, _moveSpeed, _accelerationSpeed * Time.deltaTime);
+
+        _currentMoveSpeed = speed;
+    }
+
+    public void Slow() 
+    {
+        float moveSpeed = _moveSpeed * _slowMultiplier;
+
+        moveSpeed = Mathf.Clamp(moveSpeed, 0, _currentMoveSpeed);
+
+        _currentMoveSpeed = moveSpeed;
+        _slowTimer = _slowDuration;
     }
 }

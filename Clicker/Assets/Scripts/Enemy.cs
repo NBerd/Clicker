@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour, IHitable
     public virtual void Hit()
     {
         _healthSystem.TakeDamage(1f);
+        _controller.Slow();
 
         if (_healthSystem.IsDead)
             Disable();
