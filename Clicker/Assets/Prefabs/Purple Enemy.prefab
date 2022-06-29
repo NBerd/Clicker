@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4107721091221170028}
   - component: {fileID: 4107721091221170030}
   - component: {fileID: 566484584675714484}
+  - component: {fileID: 1976914576314117132}
   m_Layer: 0
   m_Name: Purple Enemy
   m_TagString: Untagged
@@ -144,7 +145,6 @@ MonoBehaviour:
   _startHealth: 4
   _healthBar: {fileID: 4107721092694638833}
   _collider: {fileID: 4107721091221170028}
-  _controller: {fileID: 566484584675714484}
 --- !u!114 &566484584675714484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,31 +162,82 @@ MonoBehaviour:
   _accelerationSpeed: 1
   _slowMultiplier: 0.25
   _slowDuration: 0.5
-  _accelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _modelTransform: {fileID: 4107721091174729585}
+--- !u!114 &1976914576314117132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107721091221170019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90763daab8cf0534d98c01f5e4a9a8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _model: {fileID: 4107721091174729585}
+  _takeDamageAnimation:
+    _startColor: {r: 0.72156864, g: 0.1764706, b: 1, a: 1}
+    _damagedColor: {r: 1, g: 1, b: 1, a: 1}
+    _startScale: {x: 1, y: 0.75, z: 1}
+    _endScale: {x: 1.25, y: 1.25, z: 1.25}
+    _animationDuration: 0.45
+    _animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  _moveAnimation:
+    _startScale: {x: 1.25, y: 1.25, z: 1.25}
+    _endScale: {x: 1.25, y: 1, z: 1.25}
+    _animationStepDuration: 0.5
+  _spawnAnimation:
+    _startScale: {x: 0.5, y: 0.5, z: 0.5}
+    _endScale: {x: 1.25, y: 1.25, z: 1.25}
+    _animationDuration: 1
+    _animationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!1 &4107721091398429155
 GameObject:
   m_ObjectHideFlags: 0

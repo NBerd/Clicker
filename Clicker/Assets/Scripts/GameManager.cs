@@ -1,28 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private MenuManager _menuManager;
+    [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private int _numberOfEnemysToDefeat;
     [SerializeField] private float _startGameDifficulty;
     [SerializeField] private float _maxGameDifficulty;
     [SerializeField] private float _difficultyMultiplier;
 
-    public static float GameDifficulty { get; private set; }
-
     private float _gameTime;
-    private bool _gameStarted = true;
+
+    public static float GameDifficulty { get; private set; }
+    public static bool IsGameStarted { get; private set; }
+
+    private void Start()
+    {
+        Spawner.OnEnemySpawn += DefeatCondition;
+    }
 
     public void StartGame() 
     {
+        IsGameStarted = true;
         GameDifficulty = _startGameDifficulty;
         _gameTime = 0f;
-        _gameStarted = true;
+
+        _scoreManager.SetScore(0);
+        _scoreManager.EnableScoreText(true);
+        _menuManager.EnableMenu(false);
+
+        Spawner.Instance.StartSpawn();
     }
 
     private void Update()
     {
-        if (_gameStarted == false) 
+        if (IsGameStarted == false) 
             return;
 
         _gameTime += Time.deltaTime;
@@ -36,7 +48,22 @@ public class GameManager : MonoBehaviour
         difficulty = Mathf.Clamp(difficulty, _startGameDifficulty, _maxGameDifficulty);
 
         GameDifficulty = difficulty;
+    }
 
-        Debug.Log(difficulty);
+    private void DefeatCondition() 
+    {
+        if (Spawner.Enemies.Count >= _numberOfEnemysToDefeat)
+            Defeat();
+    }
+
+    private void Defeat() 
+    {
+        IsGameStarted = false;
+
+        _menuManager.EnableMenu(true);
+        _scoreManager.SaveData();
+        _scoreManager.EnableScoreText(false);
+
+        Spawner.Instance.DestroyAllEnemys();
     }
 }

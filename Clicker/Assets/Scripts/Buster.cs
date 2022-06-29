@@ -11,13 +11,15 @@ public abstract class Buster : MonoBehaviour, IHitable
 
     public void Hit()
     {
-        UseBuster();
+        if (GameManager.IsGameStarted == true)
+            UseBuster();
+
         DestroyBuster();
     }
 
     protected abstract void UseBuster();
 
-    protected void DestroyBuster()
+    public void DestroyBuster()
     {
         BusterAvailavle = false;
         Destroy(gameObject);
